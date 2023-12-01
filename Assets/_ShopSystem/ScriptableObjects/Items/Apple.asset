@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965f3de8116e4ab4d9f2651d04c34d05, type: 3}
   m_Name: Apple
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 0}
   _type: 0
   _description: Tastes like apple.
-  _sprite: {fileID: 0}
+  _itemName: Apple
+  _itemSprite: {fileID: 21300000, guid: 20ad38ca71cc26742aa59524b1738a01, type: 3}
+  _itemPrice: 5
   healthVal: 2

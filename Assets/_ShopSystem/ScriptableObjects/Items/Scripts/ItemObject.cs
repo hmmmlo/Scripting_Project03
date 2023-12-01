@@ -16,7 +16,6 @@ public abstract class ItemObject : ScriptableObject
 {
     //info about the object for inspector
     [Header("Object Info")]
-    public GameObject _prefab;
     public ItemType _type;
 
     [TextArea(15,20)]
@@ -24,6 +23,7 @@ public abstract class ItemObject : ScriptableObject
 
     //info for the shop system to use
     [Header("Shop Info")]
+    public string _itemName;
     public Sprite _itemSprite;
     public int _itemPrice;
 }

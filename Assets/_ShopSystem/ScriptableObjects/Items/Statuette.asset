@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970bdbb4ce80e614f8569dd7c770927c, type: 3}
+  m_Name: Statuette
+  m_EditorClassIdentifier: 
+  _type: 3
+  _description: It's a statuette known as the Venus of Willendorf.
+  _itemName: Statuette
+  _itemSprite: {fileID: 21300000, guid: e9160ebd8e30c2149a624e081cc3ce9d, type: 3}
+  _itemPrice: 200
