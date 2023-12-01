@@ -17,19 +17,22 @@ public class ShopManager : MonoBehaviour
     [Header("References")]
     public InventoryObject _playerInventory;
     public TextMeshProUGUI _currencyText;
+    public TextMeshProUGUI _ownedText;
     public GameObject shopUI;
-    public GameObject _itemInfoPanel;
     public Transform shopContent;
-    public GameObject _itemPrefab;
+    public GameObject _itemInfoPanel;
+    public GameObject _shopCardPrefab;
 
-    [HideInInspector] public bool firstClick = false;
+    [HideInInspector] public bool firstClick = false; //used to know when to activate info panel
 
     private void Awake()
     {
+        _itemInfoPanel.SetActive(false);
+
         //add items from inspector to shop item cards
         foreach(ShopItem shopItem in _shopItems)
         {
-            GameObject newItem = Instantiate(_itemPrefab, shopContent); //instantiate shop item on item card
+            GameObject newItem = Instantiate(_shopCardPrefab, shopContent); //instantiate shop item on item card
 
             shopItem._itemRef = newItem; //set reference to item
 
@@ -56,7 +59,20 @@ public class ShopManager : MonoBehaviour
                 }
             }
 
+            for (int i = 0; i < _playerInventory.Inventory.Count; i++)
+            {
+                if (_playerInventory.Inventory[i]._item == shopItem._item)
+                {
+                    shopItem._playerAmt = _playerInventory.Inventory[i]._amt;
+                }
+            }
+
             newItem.GetComponent<Button>().onClick.AddListener(() => {
+                if(firstClick == false) //if item never been clicked before
+                {
+                    firstClick = true; //first click has happened
+                }
+
                 UpdateItemInfo(shopItem); //show more item info in shop UI
             });
         }
@@ -79,8 +95,16 @@ public class ShopManager : MonoBehaviour
             }
         }
         else //prints console line if out of stock
-        { 
-            Debug.Log("out of stock"); 
+        {
+            Debug.Log("out of stock");
+        }
+
+        for (int i = 0; i < _playerInventory.Inventory.Count; i++)
+        {
+            if (_playerInventory.Inventory[i]._item == _currentItem._item)
+            {
+                _currentItem._playerAmt = _playerInventory.Inventory[i]._amt;
+            }
         }
     }
 
@@ -92,19 +116,24 @@ public class ShopManager : MonoBehaviour
 
     private void OnGUI()
     {
-        _currencyText.text = _currency.ToString(); //set coin text
-
+        _currencyText.text = _currency.ToString(); //set coin text & update
+        if (_currentItem != null)
+        {
+            _ownedText.text = _currentItem._playerAmt.ToString(); //set currently owned text & update 
+        }
     }
 
     //update the item info panel to the right of the shop 
     public void UpdateItemInfo(ShopItem currentItem)
     {
-        _currentItem = currentItem;
+        _currentItem = currentItem; //set current item for BuyItem function to access
 
-        if (firstClick)
+        if (firstClick) //if item has been clicked turn on info panel
         {
             _itemInfoPanel.SetActive(true);
         }
+
+        //update info panel with values
         foreach (Transform child in _itemInfoPanel.transform)
         {
             if (child.gameObject.name == "Info_ItemName_txt") //item name
@@ -123,10 +152,10 @@ public class ShopManager : MonoBehaviour
             {
                 child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._description.ToString();
             }
-            else if (child.gameObject.name == "Info_PlayerAmt_txt") //item price
+           /*else if (child.gameObject.name == "Info_PlayerAmt_txt") //player amount
             {
                 child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._playerAmt.ToString();
-            }
+            }*/
         }
     }
 }
