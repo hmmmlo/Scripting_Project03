@@ -7,38 +7,35 @@ using System.Linq;
 
 public class ShopManager : MonoBehaviour
 {
-    public static ShopManager instance;
-
     public int _currency = 500; //player currency
-    [SerializeField] public List<ShopItem> _shopItems = new List<ShopItem>();
-    private ShopItem _currentItem;
+    [SerializeField] public List<ShopItem> _shopItems = new List<ShopItem>(); //list to hold items in the shop
+    private ShopItem _currentItem; //currently selected item
 
     //item references
     [Header("References")]
-    public InventoryObject _playerInventory;
-    public TextMeshProUGUI _currencyText;
-    public TextMeshProUGUI _ownedText;
-    public GameObject shopUI;
-    public Transform shopContent;
-    public GameObject _itemInfoPanel;
-    public GameObject _shopCardPrefab;
+    public InventoryObject _playerInventory; //inventory scriptable object
+    public TextMeshProUGUI _currencyText; //amount of money player has display
+    public TextMeshProUGUI _ownedText; //player's owned item count display
+    public GameObject shopUI; //scrollview
+    public Transform shopContent; //place where items spawn
+    public GameObject _itemInfoPanel; //item info panel, right had side of shop
+    public GameObject _shopCardPrefab; //item card to instantiate in the scrollview content area
 
     [HideInInspector] public bool firstClick = false; //used to know when to activate info panel
 
     private void Awake()
     {
-        _itemInfoPanel.SetActive(false);
+        _itemInfoPanel.SetActive(false); //panel turned off bc no item selected
 
         //add items from inspector to shop item cards
         foreach(ShopItem shopItem in _shopItems)
         {
             GameObject newItem = Instantiate(_shopCardPrefab, shopContent); //instantiate shop item on item card
 
-            shopItem._itemRef = newItem; //set reference to item
-
+            shopItem._itemRef = newItem; //set itemCard reference to item
             shopItem.SetValues(); //set values of item based on scriptable object information
 
-            //update UI elements to correct variable from shop items
+            //update UI elements of shop itemCard to correct variable from shop items
             foreach(Transform child in newItem.transform)
             {
                 if(child.gameObject.name == "ItemName_txt") //item name

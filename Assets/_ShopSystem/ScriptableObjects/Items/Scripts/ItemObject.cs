@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //setup diff item types
+//user can add more here if inclined
 public enum ItemType
 {
     Food,
     Weapon,
+    Equipment,
     Generic,
     Treasure
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Food Object", menuName = "Inventory/Items/Food")]
 public class FoodObject : ItemObject
 {
+    //user can add more stats for food here
     [Header("Food Info")]
     public int healthVal;
     private void Awake()

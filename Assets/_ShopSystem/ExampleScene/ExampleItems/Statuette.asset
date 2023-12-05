@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 970bdbb4ce80e614f8569dd7c770927c, type: 3}
   m_Name: Statuette
   m_EditorClassIdentifier: 
-  _type: 3
+  _type: 4
   _description: It's a statuette known as the Venus of Willendorf.
   _itemName: Statuette
   _itemSprite: {fileID: 21300000, guid: e9160ebd8e30c2149a624e081cc3ce9d, type: 3}
   _itemPrice: 200
+  sellValue: 300

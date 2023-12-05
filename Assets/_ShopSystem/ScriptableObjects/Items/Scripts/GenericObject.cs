@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "New Generic Object", menuName = "Inventory/Items/Generic")]
 public class GenericObject : ItemObject
 {
+    //generic item
     private void Awake()
     {
         //make sure correct type is set
