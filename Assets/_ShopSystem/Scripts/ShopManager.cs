@@ -52,7 +52,7 @@ public class ShopManager : MonoBehaviour
                 }
                 else if (child.gameObject.name == "Quantity_txt") //item quantity
                 {
-                    child.gameObject.GetComponent<TextMeshProUGUI>().text = shopItem._qty.ToString();
+                    child.gameObject.GetComponent<TextMeshProUGUI>().text = shopItem._quantity.ToString();
                 }
             }
 
@@ -60,7 +60,7 @@ public class ShopManager : MonoBehaviour
             {
                 if (_playerInventory.Inventory[i]._item == shopItem._item)
                 {
-                    shopItem._playerAmt = _playerInventory.Inventory[i]._amt;
+                    shopItem._playerAmt = _playerInventory.Inventory[i]._amount;
                 }
             }
 
@@ -78,17 +78,17 @@ public class ShopManager : MonoBehaviour
     public void BuyItem()
     {
         //checks if item in stock
-        if(_currentItem._qty >= 1)
+        if(_currentItem._quantity >= 1)
         {
             //checks if player has enough money
             if (_currency >= _currentItem._cost)
             {
                 _currency -= _currentItem._cost;
                 _playerInventory.AddItem(_currentItem._item, 1);
-                _currentItem._qty -= 1;
+                _currentItem._quantity -= 1;
 
                 //update quantity text on shop item
-                _currentItem._itemRef.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = _currentItem._qty.ToString();
+                _currentItem._itemRef.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = _currentItem._quantity.ToString();
             }
         }
         else //prints console line if out of stock
@@ -96,11 +96,12 @@ public class ShopManager : MonoBehaviour
             Debug.Log("out of stock");
         }
 
+        //set current item's amount to player's inventory amount
         for (int i = 0; i < _playerInventory.Inventory.Count; i++)
         {
             if (_playerInventory.Inventory[i]._item == _currentItem._item)
             {
-                _currentItem._playerAmt = _playerInventory.Inventory[i]._amt;
+                _currentItem._playerAmt = _playerInventory.Inventory[i]._amount;
             }
         }
     }
@@ -143,16 +144,12 @@ public class ShopManager : MonoBehaviour
             }
             else if (child.gameObject.name == "Info_Qty_txt") //item quantity
             {
-                child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._qty.ToString();
+                child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._quantity.ToString();
             }
             else if (child.gameObject.name == "Info_ItemDesc_txt") //item price
             {
                 child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._description.ToString();
             }
-           /*else if (child.gameObject.name == "Info_PlayerAmt_txt") //player amount
-            {
-                child.gameObject.GetComponent<TextMeshProUGUI>().text = currentItem._playerAmt.ToString();
-            }*/
         }
     }
 }
@@ -161,15 +158,19 @@ public class ShopManager : MonoBehaviour
 [System.Serializable]
 public class ShopItem
 {
+    //seen in inspector, user can set shop item and quantity
     public ItemObject _item;
+    public int _quantity;
+
+    //hide these from inspector, these get filled by item object / inventory object values
     [HideInInspector] public string _name;
     [HideInInspector] public int _cost;
     [HideInInspector] public Sprite _image;
     [HideInInspector] public string _description;
-    public int _qty;
     [HideInInspector] public GameObject _itemRef;
     [HideInInspector] public int _playerAmt;
 
+    //function to set values to shop item variables
     public void SetValues()
     {
         _name = _item._itemName;

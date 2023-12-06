@@ -17,5 +17,5 @@ MonoBehaviour:
     wa Iya nano de B\u014Dgyoryoku ni Kyokufuri Shitai to Omoimasu."
   _itemName: Black Rose Shield
   _itemSprite: {fileID: 21300000, guid: fd169bb30d86b954cacdb9c4be94cf28, type: 3}
-  _itemPrice: 150
+  _itemPrice: 500
   defense: 3000

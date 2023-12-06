@@ -786,6 +786,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: e3fcbb3b282f95146810816867eb1bc4,
         type: 2}
+    - target: {fileID: 6805530751076631497, guid: a90486f335a7b464990f6d1b5ab036c6,
+        type: 3}
+      propertyPath: _shopItems.Array.data[0]._quantity
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805530751076631497, guid: a90486f335a7b464990f6d1b5ab036c6,
+        type: 3}
+      propertyPath: _shopItems.Array.data[1]._quantity
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805530751076631497, guid: a90486f335a7b464990f6d1b5ab036c6,
+        type: 3}
+      propertyPath: _shopItems.Array.data[2]._quantity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805530751076631497, guid: a90486f335a7b464990f6d1b5ab036c6,
+        type: 3}
+      propertyPath: _shopItems.Array.data[3]._quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805530751076631497, guid: a90486f335a7b464990f6d1b5ab036c6,
+        type: 3}
+      propertyPath: _shopItems.Array.data[4]._quantity
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6805530751260824557, guid: a90486f335a7b464990f6d1b5ab036c6,
         type: 3}
       propertyPath: m_AnchorMax.x
