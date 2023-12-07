@@ -6,7 +6,7 @@ using UnityEngine;
 public class EquipmentObject : ItemObject
 {
     //user can add more stats for equipment here
-    [Header("Equpment Info")]
+    [Header("Equipment Info")]
     public int defense;
 
     private void Awake()

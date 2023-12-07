@@ -1804,7 +1804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currency: 0
   _shopItems: []
-  _playerInventory: {fileID: 11400000, guid: bef156a003c41a1418a1a0b909125340, type: 2}
+  _playerInventory: {fileID: 0}
   _currencyText: {fileID: 6805530752239949819}
   _ownedText: {fileID: 6805530752239753033}
   shopUI: {fileID: 6805530751250893988}
