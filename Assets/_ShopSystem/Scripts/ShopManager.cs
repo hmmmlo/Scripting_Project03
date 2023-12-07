@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.Audio;
 
 public class ShopManager : MonoBehaviour
 {
@@ -16,15 +17,28 @@ public class ShopManager : MonoBehaviour
     public InventoryObject _playerInventory; //inventory scriptable object
     public TextMeshProUGUI _currencyText; //amount of money player has display
     public TextMeshProUGUI _ownedText; //player's owned item count display
+
+    [Header("Item Display Area")]
+    //item display area
     public GameObject shopUI; //scrollview
     public Transform shopContent; //place where items spawn
-    public GameObject _itemInfoPanel; //item info panel, right had side of shop
     public GameObject _shopCardPrefab; //item card to instantiate in the scrollview content area
+
+    [Header("Shop Item Info")]
+    //shop items
+    public GameObject _itemInfoPanel; //item info panel, right had side of shop
+
+    //extra info
+    public GameObject _soldOutPanel; //if player tries to buy and theres no stock
+    public GameObject _noMoneyPanel; //if player doesn't have enough money
 
     [HideInInspector] public bool firstClick = false; //used to know when to activate info panel
 
+    private Color _textColor;
+
     private void Awake()
     {
+        _textColor = _currencyText.color; //take in current text color
         _itemInfoPanel.SetActive(false); //panel turned off bc no item selected
 
         //add items from inspector to shop item cards
@@ -65,7 +79,7 @@ public class ShopManager : MonoBehaviour
             }
 
             newItem.GetComponent<Button>().onClick.AddListener(() => {
-                if(firstClick == false) //if item never been clicked before
+                if (firstClick == false) //if item never been clicked before
                 {
                     firstClick = true; //first click has happened
                 }
@@ -90,9 +104,14 @@ public class ShopManager : MonoBehaviour
                 //update quantity text on shop item
                 _currentItem._itemRef.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = _currentItem._quantity.ToString();
             }
+            else
+            {
+                _noMoneyPanel.SetActive(true); //tell player they don't have enough money
+            }
         }
         else //prints console line if out of stock
         {
+            _soldOutPanel.SetActive(true); //tell player the shop is sold out of item
             Debug.Log("out of stock");
         }
 
@@ -114,10 +133,38 @@ public class ShopManager : MonoBehaviour
 
     private void OnGUI()
     {
-        _currencyText.text = _currency.ToString(); //set coin text & update
+        // player currency display text
+
+        if(_currency <= 0)
+        {
+            _currencyText.color = Color.red; //if 0 money display money in red color
+        }
+        else
+        {
+            _currencyText.color = _textColor; //else money is default text color
+        }
+
+        if (_currency >= 99999)
+        {
+            _currencyText.text = "99999"; //if money is over 99999 then cap the display text to that number to avoid wrapping issues
+        }
+        else //else set the currency text to whatever player has
+        {
+            _currencyText.text = _currency.ToString(); //set coin text & update
+        }
+
+        // player owned item count display text
+
         if (_currentItem != null)
         {
-            _ownedText.text = _currentItem._playerAmt.ToString(); //set currently owned text & update 
+            if (_currentItem._playerAmt >= 99999)
+            {
+                _ownedText.text = "99999+"; //if item count is over 999999 then cap the display text to that number to avoid wrapping issues
+            }
+            else //else set the owned text to whatever player has
+            {
+                _ownedText.text = _currentItem._playerAmt.ToString(); //set currently owned text & update 
+            }
         }
     }
 

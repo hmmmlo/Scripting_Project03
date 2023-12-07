@@ -9,18 +9,24 @@ public class InventoryObject : ScriptableObject
     
     //add item to inventory
     public void AddItem(ItemObject addItem, int addAmount)
-    {
-        //check to see if the item is in inventory
-        for(int i = 0; i < Inventory.Count; i++)
-        {
-            if(Inventory[i]._item == addItem) //if player has item
-            {
-                Inventory[i].AddAmount(addAmount); //add amount of item to player
-                return; //stop loop
-            }
-        }
-        //if no item found then add a new inv slot
-        Inventory.Add(new InventorySlot(addItem, addAmount));
+    {bool hasItem = false; //start by assuming player does not have item 
+ 
+        //check to see if the item is in inventory 
+        for(int i = 0; i < Inventory.Count; i++) 
+        { 
+            if(Inventory[i]._item == addItem) //if player has item 
+            { 
+                Inventory[i].AddAmount(addAmount); //add amount of item to player 
+                hasItem = true; //player has item 
+                break; 
+            } 
+        } 
+ 
+        if(!hasItem) //if player doesn't have item 
+        { 
+            //add new slot to inventory 
+            Inventory.Add(new InventorySlot(addItem, addAmount)); 
+        } 
     }
 }
 
